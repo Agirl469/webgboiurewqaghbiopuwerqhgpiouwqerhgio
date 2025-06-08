@@ -1,4 +1,4 @@
-const backendURL = "http://localhost:3000"; // Change this later if hosted
+const backendURL = "https://webgboiurewqaghbiopuwerqhgpiouwqerhgio.onrender.com"; // Change this later if hosted
 
 // Login function
 async function login() {
