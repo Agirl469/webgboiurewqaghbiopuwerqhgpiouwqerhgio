@@ -1,0 +1,38 @@
+const backendURL = "http://localhost:3000"; // Change this later if hosted
+
+// Login function
+async function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) return alert("Enter email and password");
+
+  try {
+    const res = await axios.post(`${backendURL}/auth/login`, { email, password });
+    const { token } = res.data;
+
+    localStorage.setItem("token", token);
+    alert("Login successful!");
+    document.getElementById("auth-container").style.display = "none";
+    document.getElementById("chat-container").style.display = "flex";
+
+    // You could fetch user groups here
+  } catch (err) {
+    alert(err.response?.data?.message || "Login failed");
+  }
+}
+
+// Register function
+async function register() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) return alert("Enter email and password");
+
+  try {
+    const res = await axios.post(`${backendURL}/auth/register`, { email, password });
+    alert("Registered! Check your email to verify your account.");
+  } catch (err) {
+    alert(err.response?.data?.message || "Register failed");
+  }
+}

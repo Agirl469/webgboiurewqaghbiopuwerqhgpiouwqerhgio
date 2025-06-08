@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - Whispr</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; }
+    label, input { display: block; width: 100%; margin-bottom: 10px; }
+    input[type="submit"] { width: auto; padding: 10px; }
+    .message { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Register</h2>
+  <form id="registerForm">
+    <label>Email:
+      <input type="email" id="email" required />
+    </label>
+    <label>Username:
+      <input type="text" id="username" required />
+    </label>
+    <label>Password:
+      <input type="password" id="password" required />
+    </label>
+    <input type="submit" value="Register" />
+  </form>
+  <div class="message" id="message"></div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, username, password }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          messageDiv.style.color = 'green';
+          messageDiv.textContent = data.message || 'Registered successfully!';
+          form.reset();
+        } else {
+          messageDiv.style.color = 'red';
+          messageDiv.textContent = data.message || 'Registration failed.';
+        }
+      } catch (err) {
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

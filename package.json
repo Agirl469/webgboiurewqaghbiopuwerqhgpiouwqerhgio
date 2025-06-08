@@ -1,0 +1,17 @@
+{
+  "name": "whispr-project",
+  "version": "1.0.0",
+  "description": "Full stack chat app with backend and frontend",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "serve -s frontend -l 3000"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "serve": "^14.1.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
